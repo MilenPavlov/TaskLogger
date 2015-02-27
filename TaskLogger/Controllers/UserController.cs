@@ -4,11 +4,18 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using TaskLogger.Data.Abstract;
 
 namespace TaskLogger.Controllers
 {
     public class UserController : ApiController
     {
+        private readonly IUserRepository _userRepository;
+
+        public UserController(IUserRepository userRepository)
+        {
+            _userRepository = userRepository;
+        }
 
         // GET api/<controller>
         public IEnumerable<string> Get()

@@ -24,7 +24,7 @@ namespace TaskLogger.App_Start
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).PropertiesAutowired();
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
-
+            builder.RegisterType<UserRepository>().As<IUserRepository>();
             return builder.Build();
         }
     }
