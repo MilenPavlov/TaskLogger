@@ -15,9 +15,10 @@ namespace TaskLogger.Data.Abstract
         IEnumerable<User> GetUsers();
 
         string AddUser(User user);
-
+         
         string EditUser(User user);
 
         string DeleteUser(User user);
     }
 }
+   
