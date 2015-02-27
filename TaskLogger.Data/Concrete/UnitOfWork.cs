@@ -12,23 +12,23 @@ namespace TaskLogger.Data.Concrete
     public class UnitOfWork : IUnitOfWork
     {
         private TaskLoggerContext _context = new TaskLoggerContext();
-        private GenericRepository<User> _userRepository;
+        //private GenericRepository<User> _userRepository;
         private GenericRepository<UserTask> _userTaskRepository;
         private GenericRepository<UserTaskEntry> _userTaskEntryRepository;
 
 
-        public GenericRepository<User> UseRepository
-        {
-            get
-            {
-                if (_userRepository == null)
-                {
-                    _userRepository = new GenericRepository<User>(_context);
-                }
+        //public GenericRepository<User> UseRepository
+        //{
+        //    get
+        //    {
+        //        if (_userRepository == null)
+        //        {
+        //            _userRepository = new GenericRepository<User>(_context);
+        //        }
 
-                return _userRepository;
-            }
-        }
+        //        return _userRepository;
+        //    }
+        //}
 
         public GenericRepository<UserTask> UserTaskRepository
         {

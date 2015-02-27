@@ -53,10 +53,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\GenericRepository.cs" />
+    <Compile Include="Abstract\IRoleRepository.cs" />
     <Compile Include="Abstract\IUnitOfWork.cs" />
     <Compile Include="Abstract\IUserRepository.cs" />
     <Compile Include="Abstract\IUserTaskRepository.cs" />
+    <Compile Include="Concrete\RoleRepository.cs" />
+    <Compile Include="Concrete\TaskLoggerUserManager.cs" />
+    <Compile Include="Concrete\TaskLoggerUserStore.cs" />
     <Compile Include="Concrete\UnitOfWork.cs" />
+    <Compile Include="Concrete\UserRepository.cs" />
     <Compile Include="Context\TaskLoggerContext.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserTaskEntry.cs" />

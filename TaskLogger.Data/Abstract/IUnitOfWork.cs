@@ -9,7 +9,7 @@ namespace TaskLogger.Data.Abstract
 {
     public interface IUnitOfWork
     {
-        GenericRepository<User> UseRepository { get; }
+        //GenericRepository<User> UseRepository { get; }
         GenericRepository<UserTask> UserTaskRepository { get; }
 
         GenericRepository<UserTaskEntry> UserTaskEntryRepository { get; }
