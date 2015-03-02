@@ -10,16 +10,16 @@ using Autofac.Integration.WebApi;
 using TaskLogger.Data.Abstract;
 using TaskLogger.Data.Concrete;
 
-namespace TaskLogger.App_Start
+namespace TaskLogger
 {
-    public partial class StartUp
+    public partial class Startup
     {
-        public void ConfigureDI(HttpConfiguration config)
+        public static void ConfigureDI(HttpConfiguration config)
         {
             config.DependencyResolver = new AutofacWebApiDependencyResolver(RegisterServices(new ContainerBuilder()));
         }
 
-        private IContainer RegisterServices(ContainerBuilder builder)
+        private static IContainer RegisterServices(ContainerBuilder builder)
         {
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).PropertiesAutowired();
 
