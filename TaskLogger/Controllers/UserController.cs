@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Web.Http;
 using TaskLogger.Data.Abstract;
+using TaskLogger.Data.Models;
 
 namespace TaskLogger.Controllers
 {
@@ -18,9 +20,16 @@ namespace TaskLogger.Controllers
         }
 
         // GET api/<controller>
-        public IEnumerable<string> Get()
+        public IEnumerable<User> Get()
         {
-            return new string[] { "value1", "value2" };
+            return new List<User>
+            {
+                new User
+                {
+                    UserName = "test",
+                    Password = "abc"
+                }
+            };
         }
 
         // GET api/<controller>/5

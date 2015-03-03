@@ -42,7 +42,7 @@ namespace TaskLogger.App_Start
                     };                
                     await users.CreateAsync(adminUser, "Password123!");
 
-                    users.AddUserToRoleAsync(adminUser, "admin");
+                    await users.AddUserToRoleAsync(adminUser, "admin");
                 }
             }
         }

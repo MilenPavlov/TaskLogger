@@ -11,8 +11,9 @@ namespace TaskLogger.Data.Context
 {
     public class TaskLoggerContext : IdentityDbContext<User>
     {
-        public TaskLoggerContext(): base("TaskLoggerDb")
-        {          
+        public TaskLoggerContext()
+            : base("TaskLogger")
+        {
         }
 
         //public DbSet<User> Users { get; set; } 

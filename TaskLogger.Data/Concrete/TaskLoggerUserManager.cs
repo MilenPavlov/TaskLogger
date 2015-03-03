@@ -15,8 +15,8 @@ namespace TaskLogger.Data.Concrete
         {
         }
 
-        public TaskLoggerUserManager() : this(new TaskLoggerUserStore())
-        {         
-        }
+        //public TaskLoggerUserManager() : this(new TaskLoggerUserStore())
+        //{         
+        //}
     }
 }

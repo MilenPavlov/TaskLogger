@@ -9,8 +9,9 @@ namespace TaskLogger.Data.Models
 {
     public class UserTask
     {
+        [Key]
         public int UserTaskId { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public string Name { get; set; }
         public decimal UnitPrice { get; set; }
         public DateTime DateCreated { get; set; }
