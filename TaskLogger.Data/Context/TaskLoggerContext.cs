@@ -9,11 +9,15 @@ using TaskLogger.Data.Models;
 
 namespace TaskLogger.Data.Context
 {
+    using System.Configuration;
+
     public class TaskLoggerContext : IdentityDbContext<User>
     {
         public TaskLoggerContext()
-            : base("TaskLogger")
+            : base("TaskLogger", throwIfV1Schema: false)
         {
+            Configuration.ProxyCreationEnabled = false;
+            Configuration.LazyLoadingEnabled = false;
         }
 
         //public DbSet<User> Users { get; set; } 

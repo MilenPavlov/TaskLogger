@@ -4,7 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Results;
 using TaskLogger.Data.Abstract;
 using TaskLogger.Data.Models;
 
@@ -20,16 +22,18 @@ namespace TaskLogger.Controllers
         }
 
         // GET api/<controller>
-        public IEnumerable<User> Get()
+        public async Task<IHttpActionResult> GetUsersAsync()
         {
-            return new List<User>
+            try
             {
-                new User
-                {
-                    UserName = "test",
-                    Password = "abc"
-                }
-            };
+                var users = await _userRepository.GetAllUsersAsync();
+
+                return Ok(users);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError();
+            }
         }
 
         // GET api/<controller>/5
