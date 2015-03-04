@@ -98,7 +98,12 @@
     <Compile Include="Migrations\201503030728550_InitialCreate1.Designer.cs">
       <DependentUpon>201503030728550_InitialCreate1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201503040717272_extendeduserclass.cs" />
+    <Compile Include="Migrations\201503040717272_extendeduserclass.Designer.cs">
+      <DependentUpon>201503040717272_extendeduserclass.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\CreateUserModel.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserTaskEntry.cs" />
     <Compile Include="Models\UserTask.cs" />
@@ -114,6 +119,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201503030728550_InitialCreate1.resx">
       <DependentUpon>201503030728550_InitialCreate1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503040717272_extendeduserclass.resx">
+      <DependentUpon>201503040717272_extendeduserclass.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

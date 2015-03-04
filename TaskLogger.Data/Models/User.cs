@@ -11,6 +11,10 @@ namespace TaskLogger.Data.Models
     public class User : IdentityUser
     {     
         public string DisplayName { get; set; }
+
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
         public int Age { get; set; }
         public DateTime? DateOfBirth { get; set; }
 

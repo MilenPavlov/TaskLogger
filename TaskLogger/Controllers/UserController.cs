@@ -12,21 +12,17 @@ using TaskLogger.Data.Models;
 
 namespace TaskLogger.Controllers
 {
-    public class UserController : ApiController
+    using Microsoft.AspNet.Identity;
+
+    [RoutePrefix("api/accounts")]
+    public class UserController : BaseApiController
     {
-        private readonly IUserRepository _userRepository;
-
-        public UserController(IUserRepository userRepository)
-        {
-            _userRepository = userRepository;
-        }
-
-        // GET api/<controller>
+        [Route("users")]
         public async Task<IHttpActionResult> GetUsersAsync()
         {
             try
             {
-                var users = await _userRepository.GetAllUsersAsync();
+                var users = this.UserManager.Users.ToList();
 
                 return Ok(users);
             }
@@ -36,25 +32,57 @@ namespace TaskLogger.Controllers
             }
         }
 
-        // GET api/<controller>/5
-        public string Get(int id)
+        [Route("user/{id:guid}", Name = "GetUserById")]
+        public async Task<IHttpActionResult> GetUser(string id)
         {
-            return "value";
+            var user = UserManager.FindByIdAsync(id);
+
+            if (user == null)
+            {
+                return this.NotFound();
+            }
+
+            return this.Ok(user);
         }
 
-        // POST api/<controller>
-        public void Post([FromBody]string value)
+        [Route("user/{username}")]
+        public async Task<IHttpActionResult> GetUserByName(string username)
         {
+            var user = UserManager.FindByNameAsync(username);
+
+            if (user == null)
+            {
+                return this.NotFound();
+            }
+
+            return this.Ok(user);
         }
 
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
+        [Route("create")]
+        public async Task<IHttpActionResult> CreateUser(CreateUserModel userModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return this.BadRequest(ModelState);
+            }
+
+            var user = new User()
+                           {
+                               UserName = userModel.Username,
+                               Email = userModel.Email,
+                           };
+
+            var addUserResult = await UserManager.CreateAsync(user, userModel.Password);
+
+            if (!addUserResult.Succeeded)
+            {
+                return this.GetErrorResult(addUserResult);
+            }
+
+            Uri locationHeader = new Uri(Url.Link("GetUserById", new{ id = user.Id}));
+
+            return Created(locationHeader, user);
         }
 
-        // DELETE api/<controller>/5
-        public void Delete(int id)
-        {
-        }
     }
 }
