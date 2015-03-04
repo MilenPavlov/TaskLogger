@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.Entity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using TaskLogger.Data.Models;
 
 namespace TaskLogger.Data.Context
 {
-    using System.Configuration;
-
     public class TaskLoggerContext : IdentityDbContext<User>
     {
         public TaskLoggerContext()
@@ -20,7 +13,12 @@ namespace TaskLogger.Data.Context
             Configuration.LazyLoadingEnabled = false;
         }
 
-        //public DbSet<User> Users { get; set; } 
+
+        public static TaskLoggerContext Create()
+        {
+            return new TaskLoggerContext();
+        }
+
         public DbSet<UserTask> UserTasks { get; set; }
         public DbSet<UserTaskEntry> UserTaskEntries { get; set; }
 
