@@ -23,7 +23,7 @@ namespace TaskLogger.App_Start
                 }
                 if (await roles.GetRoleByNameAsync("user") == null)
                 {
-                    await roles.CreateAsync(new IdentityRole("author"));
+                    await roles.CreateAsync(new IdentityRole("user"));
                 }
             }
 

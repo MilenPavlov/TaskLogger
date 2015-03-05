@@ -79,9 +79,30 @@ namespace TaskLogger.Controllers
                 return this.GetErrorResult(addUserResult);
             }
 
-            Uri locationHeader = new Uri(Url.Link("GetUserById", new{ id = user.Id}));
+            var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+            var callbackUrl = new Uri(Url.Link("ConfirmEmailRoute", new { id = user.Id, code = code }));
+
+            await UserManager.SendEmailAsync(user.Id,"Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+
+            var locationHeader = new Uri(Url.Link("GetUserById", new{ id = user.Id}));
 
             return Created(locationHeader, user);
+        }
+
+        [HttpGet]
+        [Route("ConfirmEmail", Name = "ConfirmEmailRoute")]
+        public async Task<IHttpActionResult> ConfirmEmail(string userId = "", string code = "")
+        {
+            if (string.IsNullOrWhiteSpace(userId) || string.IsNullOrWhiteSpace(code))
+            {
+                ModelState.AddModelError("", "User Id and code is required");
+                return this.BadRequest(ModelState);
+            }
+
+            var result = await UserManager.ConfirmEmailAsync(userId, code);
+
+            return result.Succeeded ? this.Ok() : this.GetErrorResult(result);
         }
 
     }
