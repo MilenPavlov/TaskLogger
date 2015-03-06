@@ -17,6 +17,7 @@ namespace TaskLogger.Controllers
     [RoutePrefix("api/accounts")]
     public class UserController : BaseApiController
     {
+        [Authorize]
         [Route("users")]
         public async Task<IHttpActionResult> GetUsersAsync()
         {
@@ -32,6 +33,7 @@ namespace TaskLogger.Controllers
             }
         }
 
+        [Authorize]
         [Route("user/{id:guid}", Name = "GetUserById")]
         public async Task<IHttpActionResult> GetUser(string id)
         {
@@ -45,6 +47,7 @@ namespace TaskLogger.Controllers
             return this.Ok(user);
         }
 
+        [Authorize]
         [Route("user/{username}")]
         public async Task<IHttpActionResult> GetUserByName(string username)
         {
@@ -58,6 +61,7 @@ namespace TaskLogger.Controllers
             return this.Ok(user);
         }
 
+        [AllowAnonymous]
         [Route("create")]
         public async Task<IHttpActionResult> CreateUser(CreateUserModel userModel)
         {
@@ -90,6 +94,7 @@ namespace TaskLogger.Controllers
             return Created(locationHeader, user);
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("ConfirmEmail", Name = "ConfirmEmailRoute")]
         public async Task<IHttpActionResult> ConfirmEmail(string userId = "", string code = "")
@@ -104,6 +109,48 @@ namespace TaskLogger.Controllers
 
             return result.Succeeded ? this.Ok() : this.GetErrorResult(result);
         }
+
+        [Authorize]
+        [Route("ChangePassword")]
+        public async Task<IHttpActionResult> ChangePassword(ChangePasswordModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return this.BadRequest(ModelState);
+            }
+
+            var result =
+                await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            return this.Ok();
+        }
+
+        [Authorize]
+        [Route("user/{id:guid}")]
+        public async Task<IHttpActionResult> DeleteUser(string id)
+        {
+            var user = await UserManager.FindByIdAsync(id);
+
+            if (user != null)
+            {
+                var result = await UserManager.DeleteAsync(user);
+
+                if (!result.Succeeded)
+                {
+                    return this.GetErrorResult(result);
+                }
+
+                return this.Ok();
+            }
+
+            return this.NotFound();
+        }
+
 
     }
 }
