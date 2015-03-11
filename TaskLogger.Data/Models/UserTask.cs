@@ -7,8 +7,11 @@ namespace TaskLogger.Data.Models
     {
         [Key]
         public int UserTaskId { get; set; }
+        [Required]
         public string UserId { get; set; }
+        [Required]
         public string Name { get; set; }
+        [Required]
         public decimal UnitPrice { get; set; }
         public DateTime DateCreated { get; set; }
 

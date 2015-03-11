@@ -12,8 +12,10 @@ namespace TaskLogger.Data.Models
 
     public class UserTaskEntry 
     {
+        [Key]
         public int UserTaskEntryId { get; set; }
         public int UserTaskId { get; set; }
+        [Required]
         public decimal UnitsCompleted { get; set; }
         public DateTime DateTimeCompleted { get; set; }
 

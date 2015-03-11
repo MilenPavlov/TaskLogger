@@ -16,7 +16,7 @@ namespace TaskLogger.Controllers
     using TaskLogger.Data.Responses;
 
     [RoutePrefix("api/tasks")]
-    public class UserTaskController : ApiController
+    public class UserTaskController : BaseApiController
     {
         private readonly IUnitOfWork _uow;
 
