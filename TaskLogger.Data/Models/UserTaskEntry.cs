@@ -7,7 +7,10 @@ using System.Threading.Tasks;
 
 namespace TaskLogger.Data.Models
 {
-    public class UserTaskEntry
+    using TaskLogger.Data.Responses;
+    using TaskLogger.Data.Services;
+
+    public class UserTaskEntry 
     {
         public int UserTaskEntryId { get; set; }
         public int UserTaskId { get; set; }

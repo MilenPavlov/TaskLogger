@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TaskLogger.Data.Models
 {
-    public class UserTask
+    public class UserTask 
     {
         [Key]
         public int UserTaskId { get; set; }

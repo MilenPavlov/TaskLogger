@@ -120,10 +120,13 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\CreateUserModel.cs" />
+    <Compile Include="Responses\ResponseBase.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserTaskEntry.cs" />
     <Compile Include="Models\UserTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Responses\UserTaskResponse.cs" />
+    <Compile Include="Responses\UserTasksResponse.cs" />
     <Compile Include="Services\EmailService.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -17,7 +17,7 @@ namespace TaskLogger.Controllers
     [RoutePrefix("api/accounts")]
     public class UserController : BaseApiController
     {
-        [Authorize]
+        //[Authorize]
         [Route("users")]
         public async Task<IHttpActionResult> GetUsersAsync()
         {
@@ -33,7 +33,7 @@ namespace TaskLogger.Controllers
             }
         }
 
-        [Authorize]
+        //[Authorize]
         [Route("user/{id:guid}", Name = "GetUserById")]
         public async Task<IHttpActionResult> GetUser(string id)
         {
@@ -47,7 +47,7 @@ namespace TaskLogger.Controllers
             return this.Ok(user);
         }
 
-        [Authorize]
+        //[Authorize]
         [Route("user/{username}")]
         public async Task<IHttpActionResult> GetUserByName(string username)
         {
@@ -110,7 +110,7 @@ namespace TaskLogger.Controllers
             return result.Succeeded ? this.Ok() : this.GetErrorResult(result);
         }
 
-        [Authorize]
+        //[Authorize]
         [Route("ChangePassword")]
         public async Task<IHttpActionResult> ChangePassword(ChangePasswordModel model)
         {
@@ -130,7 +130,7 @@ namespace TaskLogger.Controllers
             return this.Ok();
         }
 
-        [Authorize]
+        //[Authorize]
         [Route("user/{id:guid}")]
         public async Task<IHttpActionResult> DeleteUser(string id)
         {

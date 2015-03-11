@@ -19,7 +19,7 @@ namespace TaskLogger.Data.Abstract
             _dbSet = context.Set<T>();
         }
 
-        public virtual IEnumerable<T> Get(Expression<Func<T, bool>> filter = null,
+        public virtual IList<T> Get(Expression<Func<T, bool>> filter = null,
           Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = "")
         {
             IQueryable<T> query = _dbSet;
@@ -44,7 +44,7 @@ namespace TaskLogger.Data.Abstract
             }
         }
 
-        public virtual async Task<IEnumerable<T>> GetAsync(Expression<Func<T, bool>> filter = null,
+        public virtual async Task<IList<T>> GetAsync(Expression<Func<T, bool>> filter = null,
           Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = "")
         {
             IQueryable<T> query = _dbSet;
