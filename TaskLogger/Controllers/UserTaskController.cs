@@ -18,6 +18,7 @@ namespace TaskLogger.Controllers
     [RoutePrefix("api/tasks")]
     public class UserTaskController : BaseApiController
     {
+        //todo do we need viewmodel factory??
         private readonly IUnitOfWork _uow;
 
         public UserTaskController(IUnitOfWork uow)
@@ -116,6 +117,37 @@ namespace TaskLogger.Controllers
                     UserTasks = null
                 });
             }          
+        }
+
+        [Route("edit")]
+        [HttpPut]
+        public async Task<IHttpActionResult> UpdateUserTask(UserTask userTask)
+        {
+            var existingUserTask = (await _uow.UserTaskRepository.GetAsync(x => x.UserTaskId == userTask.UserTaskId)).FirstOrDefault();
+
+            if (existingUserTask != null)
+            {
+                if (UserTaskChanged(existingUserTask, userTask))
+                {
+                    if (! await ModifiedUserTaskNameExists(userTask))
+                    {
+                        
+                    }
+                }
+            }
+
+            return this.Ok();
+        }
+
+        private async Task<bool> ModifiedUserTaskNameExists(UserTask userTask)
+        {
+            return (await _uow.UserTaskRepository.GetAsync(x => x.UserId == userTask.UserId)).FirstOrDefault(
+                    x => x.Name == userTask.Name) != null;
+        }
+
+        private bool UserTaskChanged(UserTask existingUserTask, UserTask userTask)
+        {
+            return existingUserTask.Name != userTask.Name || existingUserTask.UnitPrice != userTask.UnitPrice;
         }
     }
 }
