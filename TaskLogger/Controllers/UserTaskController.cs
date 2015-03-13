@@ -1,19 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
+using System.Threading.Tasks;
+using TaskLogger.Data.Abstract;
+using TaskLogger.Data.Models;
+using TaskLogger.Data.Responses;
 
 namespace TaskLogger.Controllers
 {
-    using System.Threading.Tasks;
-    using System.Web.Http.Description;
-    using System.Web.Http.Routing;
-
-    using TaskLogger.Data.Abstract;
-    using TaskLogger.Data.Models;
-    using TaskLogger.Data.Responses;
 
     [RoutePrefix("api/tasks")]
     public class UserTaskController : BaseApiController

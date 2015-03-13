@@ -125,6 +125,8 @@
     <Compile Include="Models\UserTaskEntry.cs" />
     <Compile Include="Models\UserTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Responses\UserTaskEntriesResponse.cs" />
+    <Compile Include="Responses\UserTaskEntryResponse.cs" />
     <Compile Include="Responses\UserTaskResponse.cs" />
     <Compile Include="Responses\UserTasksResponse.cs" />
     <Compile Include="Services\EmailService.cs" />

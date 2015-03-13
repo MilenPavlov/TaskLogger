@@ -156,6 +156,7 @@
     <Compile Include="App_Start\ConfigureAuth.cs" />
     <Compile Include="App_Start\DbConfig.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
+    <Compile Include="Controllers\UserTaskEntryController.cs" />
     <Compile Include="Models\ModelFactory.cs" />
     <Compile Include="OwinData\CustomJwtFormat.cs" />
     <Compile Include="OwinData\CustomOAuthProvider.cs" />
