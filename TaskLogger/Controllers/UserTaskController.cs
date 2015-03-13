@@ -39,8 +39,7 @@ namespace TaskLogger.Controllers
             {
                 return this.Ok(new UserTasksResponse
                                    {
-                                       ErrorMessage = string.Format("Error: {0} : {1}",ex.Message, ex.StackTrace),
-                                       UserTasks = null
+                                       ErrorMessage = string.Format("Error: {0} : {1}",ex.Message, ex.StackTrace)
                                    });
             }
           
@@ -84,12 +83,12 @@ namespace TaskLogger.Controllers
             {
                 var existingUserTasks =
                     await _uow.UserTaskRepository.GetAsync(
-                        x => x.Name == userTask.Name && x.UserId == userTask.UserId && x.UnitPrice == userTask.UnitPrice);
+                        x => x.Name == userTask.Name && x.UserId == userTask.UserId);
                 if (existingUserTasks.Any())
                 {
                     return Ok(new UserTaskResponse
                             {
-                                ErrorMessage = string.Format("Error: Task {0} with price {1} already exists", userTask.Name, userTask.UnitPrice)
+                                ErrorMessage = string.Format("Error: Task {0} already exists", userTask.Name)
                             });
                 }
 
@@ -102,19 +101,17 @@ namespace TaskLogger.Controllers
 
                 await _uow.SaveAsync();
 
-                //todo do we really need to return the userTask itself??
                 return this.Ok(new UserTaskResponse
                                    {
-                                       InfoMessage = string.Format("User Task {0} created successfully", userTask.Name),
-                                       //UserTask = userTask
+                                       InfoMessage = string.Format("User Task {0} created successfully", userTask.Name)                                   
                                    });
             }
             catch (Exception ex)
             {
-                return Ok(new UserTasksResponse
+                return Ok(new UserTaskResponse
                 {
                     ErrorMessage = string.Format("Error: {0} : {1}", ex.Message, ex.StackTrace),
-                    UserTasks = null
+                    UserTask = null
                 });
             }          
         }
@@ -123,21 +120,78 @@ namespace TaskLogger.Controllers
         [HttpPut]
         public async Task<IHttpActionResult> UpdateUserTask(UserTask userTask)
         {
-            var existingUserTask = (await _uow.UserTaskRepository.GetAsync(x => x.UserTaskId == userTask.UserTaskId)).FirstOrDefault();
-
-            if (existingUserTask != null)
+            try
             {
-                if (UserTaskChanged(existingUserTask, userTask))
+                var existingUserTask = (await _uow.UserTaskRepository.GetAsync(x => x.UserTaskId == userTask.UserTaskId)).FirstOrDefault();
+
+                if (existingUserTask != null)
                 {
-                    if (! await ModifiedUserTaskNameExists(userTask))
+                    if (UserTaskChanged(existingUserTask, userTask))
                     {
+                        if (!await ModifiedUserTaskNameExists(userTask))
+                        {
+                            existingUserTask.Name = userTask.Name;
+                            existingUserTask.UnitPrice = userTask.UnitPrice;
+                            await _uow.UserTaskRepository.UpdateAsync(existingUserTask);
+                            await _uow.SaveAsync();
+
+                            return this.Ok(new UserTaskResponse() {InfoMessage = "Update successful" });
+                        }
+                       
+                        return
+                            this.Ok(new UserTaskResponse()
+                                    {
+                                        ErrorMessage = string.Format("Desired user task name: {0} already exists, please use different name",
+                                                userTask.Name)
+                                    });
                         
                     }
-                }
-            }
 
-            return this.Ok();
+                    return this.Ok(new UserTaskResponse() { InfoMessage = "No data has been changed" });
+                }
+
+                return this.Ok(new UserTaskResponse() { ErrorMessage = string.Format("User task not found") });
+            }
+            catch (Exception ex) 
+            {
+                return Ok(new UserTaskResponse
+                {
+                    ErrorMessage = string.Format("Error: {0} : {1}", ex.Message, ex.StackTrace),
+                    UserTask = null
+                });
+            }
+            
         }
+
+        [HttpDelete]
+        [Route("delete/{userId:string}")]
+
+        public async Task<IHttpActionResult> DeleteUserTask(string userId)
+        {
+            try
+            {
+                var existingUserTask = (await _uow.UserTaskRepository.GetAsync(x => x.UserId == userId)).FirstOrDefault();
+
+                if (existingUserTask == null)
+                {
+                    return this.Ok(new UserTaskResponse() { ErrorMessage = "User Task not found" });
+                }
+
+                await _uow.UserTaskRepository.DeleteAsync(userId);
+                await _uow.SaveAsync();
+
+                return this.Ok(new UserTaskResponse() { InfoMessage = "Deleted successfully" });
+            }
+            catch (Exception ex)
+            {
+                return Ok(new UserTaskResponse
+                {
+                    ErrorMessage = string.Format("Error: {0} : {1}", ex.Message, ex.StackTrace),
+                    UserTask = null
+                });
+            }
+        }
+
 
         private async Task<bool> ModifiedUserTaskNameExists(UserTask userTask)
         {
