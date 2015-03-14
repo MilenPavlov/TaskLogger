@@ -24,6 +24,7 @@ namespace TaskLogger.Controllers
             _uow = uow;
         }
 
+        [HttpGet]
         [Route("all")]
         public async Task<IHttpActionResult> GetAllEntries()
         {
@@ -42,6 +43,7 @@ namespace TaskLogger.Controllers
             }
         }
 
+        [HttpGet]
         [Route("searchcriteria")]
         public async Task<IHttpActionResult> GetAllEntries(SearchCriteria criteria)
         {
@@ -85,7 +87,8 @@ namespace TaskLogger.Controllers
             {
                 var existingUserTaskEntries =
                     await _uow.UserTaskEntryRepository.GetAsync(
-                        x =>x.UserTaskId == userTaskEntry.UserTaskId && x.DateTimeCompleted == userTaskEntry.DateTimeCompleted && x.UnitsCompleted == userTaskEntry.UnitsCompleted);
+                        x =>x.UserTaskId == userTaskEntry.UserTaskId && x.DateTimeCompleted.Date == userTaskEntry.DateTimeCompleted.Date 
+                            && x.UnitsCompleted == userTaskEntry.UnitsCompleted && x.HoursWorked == userTaskEntry.HoursWorked);
                 if (existingUserTaskEntries.Any())
                 {
                     return Ok(new UserTaskEntryResponse
@@ -130,6 +133,7 @@ namespace TaskLogger.Controllers
                     if (UserTaskChanged(existingUserTaskEntry, userTaskEntry))
                     {
                         existingUserTaskEntry.UnitsCompleted = userTaskEntry.UnitsCompleted;
+                        existingUserTaskEntry.HoursWorked = userTaskEntry.HoursWorked;
                         await _uow.UserTaskEntryRepository.UpdateAsync(existingUserTaskEntry);
                         await _uow.SaveAsync();
 
@@ -152,6 +156,7 @@ namespace TaskLogger.Controllers
 
         }
 
+        [HttpDelete]
         [Route("delete/{userTaskEntry:int}")]
         public async Task<IHttpActionResult> DeleteUserTaskEntry(int userTaskEntryId)
         {
@@ -180,7 +185,7 @@ namespace TaskLogger.Controllers
 
         private bool UserTaskChanged(UserTaskEntry existingUserTaskEntry, UserTaskEntry userTaskEntry)
         {
-            return existingUserTaskEntry.UnitsCompleted != userTaskEntry.UnitsCompleted;
+            return existingUserTaskEntry.UnitsCompleted != userTaskEntry.UnitsCompleted || existingUserTaskEntry.HoursWorked != userTaskEntry.HoursWorked;
         }
     }
 }

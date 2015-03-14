@@ -164,7 +164,6 @@ namespace TaskLogger.Controllers
         {
             try
             {
-                //todo delete all related usertaskentries too
                 var existingUserTask = (await _uow.UserTaskRepository.GetAsync(x => x.UserTaskId == userTaskId)).FirstOrDefault();
 
                 if (existingUserTask == null)

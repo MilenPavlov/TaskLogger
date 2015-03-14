@@ -35,8 +35,6 @@ namespace TaskLogger.Data.Context
                 .HasRequired(x => x.UserTask)
                 .WithMany()
                 .HasForeignKey(x => x.UserTaskId);
-
-
         }
     }
 }
