@@ -117,6 +117,10 @@
     <Compile Include="Migrations\201503040717272_extendeduserclass.Designer.cs">
       <DependentUpon>201503040717272_extendeduserclass.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201503140844251_extendedUserTaskEntryClass.cs" />
+    <Compile Include="Migrations\201503140844251_extendedUserTaskEntryClass.Designer.cs">
+      <DependentUpon>201503140844251_extendedUserTaskEntryClass.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\CreateUserModel.cs" />
@@ -145,6 +149,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201503040717272_extendeduserclass.resx">
       <DependentUpon>201503040717272_extendeduserclass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503140844251_extendedUserTaskEntryClass.resx">
+      <DependentUpon>201503140844251_extendedUserTaskEntryClass.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

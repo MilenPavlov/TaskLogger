@@ -17,6 +17,8 @@ namespace TaskLogger.Data.Models
         public int UserTaskId { get; set; }
         [Required]
         public decimal UnitsCompleted { get; set; }
+
+        public decimal HoursWorked { get; set; }
         public DateTime DateTimeCompleted { get; set; }
 
         public virtual UserTask UserTask { get; set; }
