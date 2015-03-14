@@ -39,7 +39,7 @@ namespace TaskLogger.Controllers
             }
           
         }
-        [Route("usertasks/{userId:string}")]
+        [Route("usertasks/{userId}")]
         public async Task<IHttpActionResult> GetUserTasksForUser(string userId, DateTime? fromDate, DateTime? toDate)
         {
             try
@@ -76,6 +76,13 @@ namespace TaskLogger.Controllers
         {
             try
             {
+                if (userTask == null)
+                {
+                    return this.Ok(new UserTaskResponse() { ErrorMessage = "No data received" });
+                }
+
+                userTask.DateCreated = DateTime.Now;
+
                 var existingUserTasks =
                     await _uow.UserTaskRepository.GetAsync(
                         x => x.Name == userTask.Name && x.UserId == userTask.UserId);
@@ -117,6 +124,11 @@ namespace TaskLogger.Controllers
         {
             try
             {
+                if (userTask == null)
+                {
+                    return this.Ok(new UserTaskResponse() { ErrorMessage = "No data received" });
+                }
+
                 var existingUserTask = (await _uow.UserTaskRepository.GetAsync(x => x.UserTaskId == userTask.UserTaskId)).FirstOrDefault();
 
                 if (existingUserTask != null)
@@ -160,10 +172,14 @@ namespace TaskLogger.Controllers
         [HttpDelete]
         [Route("delete/{userTaskId:int}")]
 
-        public async Task<IHttpActionResult> DeleteUserTask(int userTaskId)
+        public async Task<IHttpActionResult> DeleteUserTask(int userTaskId = 0)
         {
             try
             {
+                if (userTaskId == 0)
+                {
+                    return this.Ok(new UserTaskResponse() { ErrorMessage = "No data received" });
+                }
                 var existingUserTask = (await _uow.UserTaskRepository.GetAsync(x => x.UserTaskId == userTaskId)).FirstOrDefault();
 
                 if (existingUserTask == null)

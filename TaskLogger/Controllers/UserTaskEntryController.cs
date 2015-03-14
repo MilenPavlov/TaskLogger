@@ -1,18 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
-
+using System.Threading.Tasks;
+using TaskLogger.Data.Abstract;
+using TaskLogger.Data.Models;
+using TaskLogger.Data.Responses;
 namespace TaskLogger.Controllers
 {
-    using System.Collections;
-    using System.Threading.Tasks;
 
-    using TaskLogger.Data.Abstract;
-    using TaskLogger.Data.Models;
-    using TaskLogger.Data.Responses;
 
     [RoutePrefix("usertaskentry")]
     public class UserTaskEntryController : BaseApiController
@@ -50,7 +46,14 @@ namespace TaskLogger.Controllers
             try
             {
                 //var userId = await _uow.UserTaskRepository.GetAsync(x => x.UserId == criteria.UserId);
-                
+                if (criteria == null)
+                {
+                    return Ok(new UserTaskEntriesResponse()
+                    {
+                        ErrorMessage = "No data received"
+                    });
+                }
+
                 IList<UserTaskEntry> userTaskEntries;
 
                 if (criteria.FromDate.HasValue && criteria.ToDate.HasValue)
@@ -85,6 +88,14 @@ namespace TaskLogger.Controllers
         {
             try
             {
+                if (userTaskEntry == null)
+                {
+                    return Ok(new UserTaskEntryResponse
+                    {
+                        ErrorMessage = "No data received"
+                    });
+                }
+
                 var existingUserTaskEntries =
                     await _uow.UserTaskEntryRepository.GetAsync(
                         x =>x.UserTaskId == userTaskEntry.UserTaskId && x.DateTimeCompleted.Date == userTaskEntry.DateTimeCompleted.Date 
@@ -126,6 +137,14 @@ namespace TaskLogger.Controllers
         {
             try
             {
+                if (userTaskEntry == null)
+                {
+                    return Ok(new UserTaskEntryResponse
+                    {
+                        ErrorMessage = "No data received"
+                    });
+                }
+
                 var existingUserTaskEntry = (await _uow.UserTaskEntryRepository.GetAsync(x => x.UserTaskEntryId == userTaskEntry.UserTaskEntryId)).FirstOrDefault();
 
                 if (existingUserTaskEntry != null)
@@ -158,10 +177,18 @@ namespace TaskLogger.Controllers
 
         [HttpDelete]
         [Route("delete/{userTaskEntry:int}")]
-        public async Task<IHttpActionResult> DeleteUserTaskEntry(int userTaskEntryId)
+        public async Task<IHttpActionResult> DeleteUserTaskEntry(int userTaskEntryId = 0)
         {
             try
             {
+                if (userTaskEntryId == 0)
+                {
+                    return Ok(new UserTaskEntryResponse
+                    {
+                        ErrorMessage = "No data received"
+                    });
+                }
+
                 var existingUserTaskEntry = await _uow.UserTaskEntryRepository.GetByIdAsync(userTaskEntryId);
 
                 if (existingUserTaskEntry == null)
