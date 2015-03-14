@@ -120,6 +120,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\CreateUserModel.cs" />
+    <Compile Include="Models\SearchCriteria.cs" />
     <Compile Include="Responses\ResponseBase.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserTaskEntry.cs" />

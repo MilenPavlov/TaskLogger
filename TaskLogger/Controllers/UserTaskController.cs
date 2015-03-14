@@ -154,25 +154,25 @@ namespace TaskLogger.Controllers
                     ErrorMessage = string.Format("Error: {0} : {1}", ex.Message, ex.StackTrace),
                     UserTask = null
                 });
-            }
-            
+            }            
         }
 
         [HttpDelete]
-        [Route("delete/{userId:string}")]
+        [Route("delete/{userTaskId:int}")]
 
-        public async Task<IHttpActionResult> DeleteUserTask(string userId)
+        public async Task<IHttpActionResult> DeleteUserTask(int userTaskId)
         {
             try
             {
-                var existingUserTask = (await _uow.UserTaskRepository.GetAsync(x => x.UserId == userId)).FirstOrDefault();
+                //todo delete all related usertaskentries too
+                var existingUserTask = (await _uow.UserTaskRepository.GetAsync(x => x.UserTaskId == userTaskId)).FirstOrDefault();
 
                 if (existingUserTask == null)
                 {
                     return this.Ok(new UserTaskResponse() { ErrorMessage = "User Task not found" });
                 }
 
-                await _uow.UserTaskRepository.DeleteAsync(userId);
+                await _uow.UserTaskRepository.DeleteAsync(userTaskId);
                 await _uow.SaveAsync();
 
                 return this.Ok(new UserTaskResponse() { InfoMessage = "Deleted successfully" });
