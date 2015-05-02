@@ -12,6 +12,8 @@ using TaskLogger.Data.Models;
 
 namespace TaskLogger.Controllers
 {
+    using System.Data.Entity;
+
     using Microsoft.AspNet.Identity;
 
     [RoutePrefix("api/accounts")]
@@ -23,7 +25,7 @@ namespace TaskLogger.Controllers
         {
             try
             {
-                var users = this.UserManager.Users.ToList();
+                var users = await UserManager.Users.ToListAsync();
 
                 return Ok(users);
             }
@@ -37,7 +39,7 @@ namespace TaskLogger.Controllers
         [Route("user/{id:guid}", Name = "GetUserById")]
         public async Task<IHttpActionResult> GetUser(string id)
         {
-            var user = UserManager.FindByIdAsync(id);
+            var user = await UserManager.FindByIdAsync(id);
 
             if (user == null)
             {
@@ -51,7 +53,7 @@ namespace TaskLogger.Controllers
         [Route("user/{username}")]
         public async Task<IHttpActionResult> GetUserByName(string username)
         {
-            var user = UserManager.FindByNameAsync(username);
+            var user = await UserManager.FindByNameAsync(username);
 
             if (user == null)
             {

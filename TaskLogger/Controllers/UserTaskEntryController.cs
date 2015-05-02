@@ -44,8 +44,7 @@ namespace TaskLogger.Controllers
         public async Task<IHttpActionResult> GetAllEntries(SearchCriteria criteria)
         {
             try
-            {
-                //var userId = await _uow.UserTaskRepository.GetAsync(x => x.UserId == criteria.UserId);
+            {             
                 if (criteria == null)
                 {
                     return Ok(new UserTaskEntriesResponse()
@@ -147,22 +146,20 @@ namespace TaskLogger.Controllers
 
                 var existingUserTaskEntry = (await _uow.UserTaskEntryRepository.GetAsync(x => x.UserTaskEntryId == userTaskEntry.UserTaskEntryId)).FirstOrDefault();
 
-                if (existingUserTaskEntry != null)
+                if (existingUserTaskEntry == null)
                 {
-                    if (UserTaskChanged(existingUserTaskEntry, userTaskEntry))
-                    {
-                        existingUserTaskEntry.UnitsCompleted = userTaskEntry.UnitsCompleted;
-                        existingUserTaskEntry.HoursWorked = userTaskEntry.HoursWorked;
-                        await _uow.UserTaskEntryRepository.UpdateAsync(existingUserTaskEntry);
-                        await _uow.SaveAsync();
-
-                        return this.Ok(new UserTaskResponse() { InfoMessage = "Update successful" });                      
-                    }
-
+                    return this.Ok(new UserTaskResponse() { ErrorMessage = string.Format("User task not found") });
+                }
+                if (!this.UserTaskChanged(existingUserTaskEntry, userTaskEntry))
+                {
                     return this.Ok(new UserTaskResponse() { InfoMessage = "No data has been changed" });
                 }
+                existingUserTaskEntry.UnitsCompleted = userTaskEntry.UnitsCompleted;
+                existingUserTaskEntry.HoursWorked = userTaskEntry.HoursWorked;
+                await this._uow.UserTaskEntryRepository.UpdateAsync(existingUserTaskEntry);
+                await this._uow.SaveAsync();
 
-                return this.Ok(new UserTaskResponse() { ErrorMessage = string.Format("User task not found") });
+                return this.Ok(new UserTaskResponse() { InfoMessage = "Update successful" });
             }
             catch (Exception ex)
             {
