@@ -10,7 +10,7 @@ namespace TaskLogger.Controllers
 {
 
 
-    [RoutePrefix("usertaskentry")]
+    [RoutePrefix("api/usertaskentry")]
     public class UserTaskEntryController : BaseApiController
     {
         private readonly IUnitOfWork _uow;
