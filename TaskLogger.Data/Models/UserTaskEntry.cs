@@ -21,6 +21,8 @@ namespace TaskLogger.Data.Models
         public decimal HoursWorked { get; set; }
         public DateTime DateTimeCompleted { get; set; }
 
+        //todo add notes ??
+
         public virtual UserTask UserTask { get; set; }
     }
 }

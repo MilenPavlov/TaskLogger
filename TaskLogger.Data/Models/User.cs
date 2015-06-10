@@ -9,7 +9,9 @@ namespace TaskLogger.Data.Models
     using Microsoft.AspNet.Identity;
 
     public class User : IdentityUser
-    {     
+    {
+        public string UserId => Id;
+
         public string DisplayName { get; set; }
 
         public string FirstName { get; set; }
