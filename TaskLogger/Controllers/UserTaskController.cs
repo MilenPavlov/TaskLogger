@@ -40,19 +40,18 @@ namespace TaskLogger.Controllers
           
         }
         [Route("usertasks/{userId}")]
-        public async Task<IHttpActionResult> GetUserTasksForUser(string userId, DateTime? fromDate, DateTime? toDate)
+        public async Task<IHttpActionResult> GetUserTasksForUser(string userId)
         {
             try
             {
-                IList<UserTask> userTasksForUser;
-                if (fromDate.HasValue && toDate.HasValue)
-                {
-                    userTasksForUser = await _uow.UserTaskRepository.GetAsync(x => x.UserId == userId && x.DateCreated >= fromDate && x.DateCreated <= toDate);
-                }
-                else
-                {
-                    userTasksForUser = await _uow.UserTaskRepository.GetAsync(x => x.UserId == userId);
-                }
+                //if (fromDate.HasValue && toDate.HasValue)
+                //{
+                //    userTasksForUser = await _uow.UserTaskRepository.GetAsync(x => x.UserId == userId && x.DateCreated >= fromDate && x.DateCreated <= toDate);
+                //}
+                //else
+                //{
+                var userTasksForUser = await this._uow.UserTaskRepository.GetAsync(x => x.UserId == userId);
+                //}
                 
 
                 return Ok(new UserTasksResponse { UserTasks = userTasksForUser });
