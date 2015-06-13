@@ -9,6 +9,7 @@ using TaskLogger.Data.Responses;
 
 namespace TaskLogger.Controllers
 {
+    using Newtonsoft.Json;
 
     [RoutePrefix("api/tasks")]
     public class UserTaskController : BaseApiController
@@ -71,10 +72,12 @@ namespace TaskLogger.Controllers
         [Route("create")]
         //[ResponseType(typeof(UserTask))]
         [HttpPost]
-        public async Task<IHttpActionResult> CreateUserTask(UserTask userTask)
+        public async Task<IHttpActionResult> CreateUserTask(string userTaskString)
         {
             try
             {
+                var userTask = JsonConvert.DeserializeObject<UserTask>(userTaskString);
+
                 if (userTask == null)
                 {
                     return this.Ok(new UserTaskResponse() { ErrorMessage = "No data received" });
@@ -102,7 +105,7 @@ namespace TaskLogger.Controllers
 
                 await _uow.SaveAsync();
 
-                return this.Ok(new UserTaskResponse
+                return Ok(new UserTaskResponse
                                    {
                                        InfoMessage = string.Format("User Task {0} created successfully", userTask.Name)                                   
                                    });
