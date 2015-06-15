@@ -9,6 +9,8 @@ using TaskLogger.Data.Responses;
 
 namespace TaskLogger.Controllers
 {
+    using System.Web.Http.Description;
+
     using Newtonsoft.Json;
 
     [RoutePrefix("api/tasks")]
@@ -70,13 +72,13 @@ namespace TaskLogger.Controllers
 
         //todo not sure about ResponseType
         [Route("create")]
-        //[ResponseType(typeof(UserTask))]
+        [ResponseType(typeof(UserTask))]
         [HttpPost]
-        public async Task<IHttpActionResult> CreateUserTask(string userTaskString)
+        public async Task<IHttpActionResult> CreateUserTask(UserTask userTask)
         {
             try
             {
-                var userTask = JsonConvert.DeserializeObject<UserTask>(userTaskString);
+                //var userTask = JsonConvert.DeserializeObject<UserTask>(userTaskString);
 
                 if (userTask == null)
                 {
