@@ -97,8 +97,7 @@ namespace TaskLogger.Controllers
 
                 var existingUserTaskEntries =
                     await _uow.UserTaskEntryRepository.GetAsync(
-                        x =>x.UserTaskId == userTaskEntry.UserTaskId && x.DateTimeCompleted.Date == userTaskEntry.DateTimeCompleted.Date 
-                            && x.UnitsCompleted == userTaskEntry.UnitsCompleted && x.HoursWorked == userTaskEntry.HoursWorked);
+                        x => x.UserTaskId == userTaskEntry.UserTaskId && x.UnitsCompleted == userTaskEntry.UnitsCompleted && x.HoursWorked == userTaskEntry.HoursWorked);
                 if (existingUserTaskEntries.Any())
                 {
                     return Ok(new UserTaskEntryResponse
