@@ -11,6 +11,7 @@ namespace TaskLogger.Data.Context
         {
             Configuration.ProxyCreationEnabled = false;
             Configuration.LazyLoadingEnabled = false;
+            
         }
 
 
