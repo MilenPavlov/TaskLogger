@@ -34,7 +34,7 @@ namespace TaskLogger.Controllers
             {
                 return Ok(new UserTaskEntriesResponse()
                             {
-                                ErrorMessage = string.Format("Error: {0} : {1}",ex.Message,ex.StackTrace)
+                                ErrorMessage = $"Error: {ex.Message} : {ex.StackTrace}"
                             });
             }
         }
@@ -76,7 +76,7 @@ namespace TaskLogger.Controllers
             {
                 return Ok(new UserTaskEntriesResponse()
                 {
-                    ErrorMessage = string.Format("Error: {0} : {1}", ex.Message, ex.StackTrace)
+                    ErrorMessage = $"Error: {ex.Message} : {ex.StackTrace}"
                 });
             }
         }
@@ -103,7 +103,7 @@ namespace TaskLogger.Controllers
                 {
                     return Ok(new UserTaskEntryResponse
                     {
-                        ErrorMessage = string.Format("Error: Task Entry for {0} already exists", userTaskEntry.DateTimeCompleted.ToShortDateString())
+                        ErrorMessage = String.Intern($"Error: Task Entry for {userTaskEntry.DateTimeCompleted.ToShortDateString()} already exists")
                     });
                 }
 
@@ -118,14 +118,14 @@ namespace TaskLogger.Controllers
 
                 return this.Ok(new UserTaskEntryResponse
                 {
-                    InfoMessage = string.Format("User Task Entry created successfully")
+                    InfoMessage = "User Task Entry created successfully"
                 });
             }
             catch (Exception ex)
             {
                 return Ok(new UserTaskEntryResponse
                 {
-                    ErrorMessage = string.Format("Error: {0} : {1}", ex.Message, ex.StackTrace)
+                    ErrorMessage = $"Error: {ex.Message} : {ex.StackTrace}"
                 });
             }
         }
@@ -165,7 +165,7 @@ namespace TaskLogger.Controllers
             {
                 return Ok(new UserTaskResponse
                 {
-                    ErrorMessage = string.Format("Error: {0} : {1}", ex.Message, ex.StackTrace),
+                    ErrorMessage = $"Error: {ex.Message} : {ex.StackTrace}",
                     UserTask = null
                 });
             }
@@ -202,7 +202,7 @@ namespace TaskLogger.Controllers
             {
                 return Ok(new UserTaskEntryResponse
                 {
-                    ErrorMessage = string.Format("Error: {0} : {1}", ex.Message, ex.StackTrace)
+                    ErrorMessage = $"Error: {ex.Message} : {ex.StackTrace}"
                 });
             }
         }
