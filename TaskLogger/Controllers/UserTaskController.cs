@@ -16,7 +16,6 @@ namespace TaskLogger.Controllers
     [RoutePrefix("api/tasks")]
     public class UserTaskController : BaseApiController
     {
-        //todo do we need viewmodel factory??
         private readonly IUnitOfWork _uow;
 
         public UserTaskController(IUnitOfWork uow)
@@ -47,15 +46,7 @@ namespace TaskLogger.Controllers
         {
             try
             {
-                //if (fromDate.HasValue && toDate.HasValue)
-                //{
-                //    userTasksForUser = await _uow.UserTaskRepository.GetAsync(x => x.UserId == userId && x.DateCreated >= fromDate && x.DateCreated <= toDate);
-                //}
-                //else
-                //{
                 var userTasksForUser = await this._uow.UserTaskRepository.GetAsync(x => x.UserId == userId);
-                //}
-                
 
                 return Ok(new UserTasksResponse { UserTasks = userTasksForUser });
             }
@@ -64,7 +55,7 @@ namespace TaskLogger.Controllers
 
                 return Ok(new UserTasksResponse
                             {
-                                ErrorMessage = string.Format("Error: {0} : {1}", ex.Message, ex.StackTrace),
+                                ErrorMessage = $"Error: {ex.Message} : {ex.StackTrace}",
                                 UserTasks = null
                             });
             }
@@ -78,8 +69,6 @@ namespace TaskLogger.Controllers
         {
             try
             {
-                //var userTask = JsonConvert.DeserializeObject<UserTask>(userTaskString);
-
                 if (userTask == null)
                 {
                     return this.Ok(new UserTaskResponse() { ErrorMessage = "No data received" });
@@ -94,7 +83,7 @@ namespace TaskLogger.Controllers
                 {
                     return Ok(new UserTaskResponse
                             {
-                                ErrorMessage = string.Format("Error: Task {0} already exists", userTask.Name)
+                                ErrorMessage = $"Error: Task {userTask.Name} already exists"
                             });
                 }
 
@@ -109,14 +98,14 @@ namespace TaskLogger.Controllers
 
                 return Ok(new UserTaskResponse
                                    {
-                                       InfoMessage = string.Format("User Task {0} created successfully", userTask.Name)                                   
+                                       InfoMessage = $"User Task {userTask.Name} created successfully"
                                    });
             }
             catch (Exception ex)
             {
                 return Ok(new UserTaskResponse
                 {
-                    ErrorMessage = string.Format("Error: {0} : {1}", ex.Message, ex.StackTrace),
+                    ErrorMessage = $"Error: {ex.Message} : {ex.StackTrace}",
                     UserTask = null
                 });
             }          
@@ -152,8 +141,8 @@ namespace TaskLogger.Controllers
                         return
                             this.Ok(new UserTaskResponse()
                                     {
-                                        ErrorMessage = string.Format("Desired user task name: {0} already exists, please use different name",
-                                                userTask.Name)
+                                        ErrorMessage =
+                                            $"Desired user task name: {userTask.Name} already exists, please use different name"
                                     });
                         
                     }
@@ -167,7 +156,7 @@ namespace TaskLogger.Controllers
             {
                 return Ok(new UserTaskResponse
                 {
-                    ErrorMessage = string.Format("Error: {0} : {1}", ex.Message, ex.StackTrace),
+                    ErrorMessage = $"Error: {ex.Message} : {ex.StackTrace}",
                     UserTask = null
                 });
             }            
@@ -200,7 +189,7 @@ namespace TaskLogger.Controllers
             {
                 return Ok(new UserTaskResponse
                 {
-                    ErrorMessage = string.Format("Error: {0} : {1}", ex.Message, ex.StackTrace),
+                    ErrorMessage = $"Error: {ex.Message} : {ex.StackTrace}",
                     UserTask = null
                 });
             }
