@@ -7,6 +7,7 @@ using Owin;
 using System;
 using System.Configuration;
 using System.Web.Http;
+using Swashbuckle.Application;
 using TaskLogger.App_Start;
 
 [assembly: OwinStartup(typeof(TaskLogger.Startup))]
@@ -30,6 +31,8 @@ namespace TaskLogger
             app.UseWebApi(config);
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
 
+            config.EnableSwagger(c => c.SingleApiVersion("v1", "TaskLogger"))
+                .EnableSwaggerUi();
             ConfigureDI(config);
             await DbConfig.RegisterAdmin();
 

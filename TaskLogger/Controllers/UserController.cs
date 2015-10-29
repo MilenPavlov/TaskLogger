@@ -24,7 +24,7 @@ namespace TaskLogger.Controllers
             }
             catch (Exception ex)
             {
-                return InternalServerError();
+                return InternalServerError(ex);
             }
         }
 
