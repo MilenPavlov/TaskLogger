@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net.Http.Formatting;
 using System.Web.Http;
 using Newtonsoft.Json.Serialization;
+using TaskLogger.Data.Migrations;
 
 namespace TaskLogger
 {
@@ -26,6 +26,9 @@ namespace TaskLogger
 
             var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();
             jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+
+            var migrator = new DbMigrator(new Configuration());
+            migrator.Update();
         }
     }
 }

@@ -1,13 +1,11 @@
 ﻿using System;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace TaskLogger.Data.Models
 {
-    using System.Security.Claims;
-    using System.Threading.Tasks;
-
-    using Microsoft.AspNet.Identity;
-
     public class User : IdentityUser
     {
         public string UserId => Id;
@@ -19,6 +17,8 @@ namespace TaskLogger.Data.Models
         public string LastName { get; set; }
         public int Age { get; set; }
         public DateTime? DateOfBirth { get; set; }
+
+        public string Tag { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager, string authenticationType)
         {
