@@ -19,6 +19,7 @@ namespace TaskLogger.Data.Models
         public DateTime? DateOfBirth { get; set; }
 
         public string Tag { get; set; }
+        public string Gender { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager, string authenticationType)
         {

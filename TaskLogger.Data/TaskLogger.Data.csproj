@@ -142,6 +142,10 @@
     <Compile Include="Migrations\201511161515181_AddedTag.Designer.cs">
       <DependentUpon>201511161515181_AddedTag.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511161529499_AddedGender.cs" />
+    <Compile Include="Migrations\201511161529499_AddedGender.Designer.cs">
+      <DependentUpon>201511161529499_AddedGender.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\CreateUserModel.cs" />
@@ -179,6 +183,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511161515181_AddedTag.resx">
       <DependentUpon>201511161515181_AddedTag.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511161529499_AddedGender.resx">
+      <DependentUpon>201511161529499_AddedGender.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
