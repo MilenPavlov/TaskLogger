@@ -1,19 +1,19 @@
+using System.Data.Entity.Migrations;
+using System.Data.Entity.SqlServer;
+using TaskLogger.Data.Context;
+
 namespace TaskLogger.Data.Migrations
 {
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
-
-    public sealed class Configuration : DbMigrationsConfiguration<TaskLogger.Data.Context.TaskLoggerContext>
+    public sealed class Configuration : DbMigrationsConfiguration<TaskLoggerContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            SetSqlGenerator("System.Data.SqlClient", new SqlServerMigrationSqlGenerator());
             ContextKey = "TaskLogger.Data.Context.TaskLoggerContext";
         }
 
-        protected override void Seed(TaskLogger.Data.Context.TaskLoggerContext context)
+        protected override void Seed(TaskLoggerContext context)
         {
             //  This method will be called after migrating to the latest version.
 
