@@ -23,6 +23,7 @@ namespace TaskLogger.Data.Models
 
         public string Notes { get; set; }
 
+        public bool Archived { get; set; }
         public virtual UserTask UserTask { get; set; }
     }
 }

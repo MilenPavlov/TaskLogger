@@ -216,6 +216,8 @@
     <Content Include="ApplicationInsights.config" />
     <None Include="Properties\PublishProfiles\tasklogger.pubxml" />
     <Content Include="Service References\Application Insights\ConnectedService.json" />
+    <None Include="Properties\PublishProfiles\tls.pubxml" />
+    <None Include="Properties\PublishProfiles\tlstandard - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\tlstandard.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

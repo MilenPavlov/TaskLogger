@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity.Migrations.Model;
 
 namespace TaskLogger.Data.Models
 {
@@ -15,6 +16,7 @@ namespace TaskLogger.Data.Models
         public decimal UnitPrice { get; set; }
         public DateTime DateCreated { get; set; }
 
+        public bool Archived { get; set; }
         public virtual User User { get; set; }
     }
 }

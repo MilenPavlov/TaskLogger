@@ -21,6 +21,8 @@ namespace TaskLogger.Data.Models
         public string Tag { get; set; }
         public string Gender { get; set; }
 
+        public bool Archived { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager, string authenticationType)
         {
             var userIdentity = await manager.CreateIdentityAsync(this, authenticationType);
