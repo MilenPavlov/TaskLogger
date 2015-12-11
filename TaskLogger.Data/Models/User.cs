@@ -8,6 +8,10 @@ namespace TaskLogger.Data.Models
 {
     public class User : IdentityUser
     {
+        public User()
+        {
+            UserType = UserType.User;
+        }
         public string UserId => Id;
 
         public string DisplayName { get; set; }
@@ -22,6 +26,8 @@ namespace TaskLogger.Data.Models
         public string Gender { get; set; }
 
         public bool Archived { get; set; }
+
+        public UserType UserType { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager, string authenticationType)
         {
