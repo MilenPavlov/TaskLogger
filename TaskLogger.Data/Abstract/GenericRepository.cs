@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using TaskLogger.Data.Context;
@@ -72,6 +73,11 @@ namespace TaskLogger.Data.Abstract
         public virtual T GetByID(object id)
         {
             return _dbSet.Find(id);
+        }
+
+        public virtual async Task<bool> ExistsAsync(object id)
+        {
+            return await _dbSet.AnyAsync(x => x.Equals(id));
         }
 
         public virtual async Task<T> GetByIdAsync(object id)

@@ -19,7 +19,7 @@ namespace TaskLogger.Data.Models
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
-        public int Age { get; set; }
+        public int Age => (int) (DateTime.Now - (DateOfBirth ?? DateTime.Now)).TotalDays/365;
         public DateTime? DateOfBirth { get; set; }
 
         public string Tag { get; set; }
@@ -29,6 +29,7 @@ namespace TaskLogger.Data.Models
 
         public UserType UserType { get; set; }
 
+        public virtual UserImage UserImage { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager, string authenticationType)
         {
             var userIdentity = await manager.CreateIdentityAsync(this, authenticationType);

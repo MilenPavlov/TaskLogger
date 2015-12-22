@@ -200,8 +200,10 @@
     <Compile Include="App_Start\ConfigureAuth.cs" />
     <Compile Include="App_Start\DbConfig.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
+    <Compile Include="Controllers\UserImageController.cs" />
     <Compile Include="Controllers\UserTaskEntryController.cs" />
     <Compile Include="Models\ModelFactory.cs" />
+    <Compile Include="Models\UserImageModel.cs" />
     <Compile Include="OwinData\CustomJwtFormat.cs" />
     <Compile Include="OwinData\CustomOAuthProvider.cs" />
     <Compile Include="Startup.cs" />
@@ -214,11 +216,10 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config" />
-    <None Include="Properties\PublishProfiles\tasklogger.pubxml" />
     <Content Include="Service References\Application Insights\ConnectedService.json" />
     <None Include="Properties\PublishProfiles\tls.pubxml" />
+    <None Include="Properties\PublishProfiles\tlstandard - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\tlstandard - Web Deploy.pubxml" />
-    <None Include="Properties\PublishProfiles\tlstandard.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

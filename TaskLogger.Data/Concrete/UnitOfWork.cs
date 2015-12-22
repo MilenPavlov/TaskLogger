@@ -14,6 +14,7 @@ namespace TaskLogger.Data.Concrete
         private TaskLoggerContext _context = new TaskLoggerContext();
         private GenericRepository<UserTask> _userTaskRepository;
         private GenericRepository<UserTaskEntry> _userTaskEntryRepository;
+        private GenericRepository<UserImage> _userImageRepository;
 
         public GenericRepository<UserTask> UserTaskRepository
         {
@@ -25,6 +26,19 @@ namespace TaskLogger.Data.Concrete
                 }
 
                 return _userTaskRepository;
+            }
+        }
+
+        public GenericRepository<UserImage> UserImageRepository
+        {
+            get
+            {
+                if (_userImageRepository == null)
+                {
+                    _userImageRepository = new GenericRepository<UserImage>(_context);
+                }
+
+                return _userImageRepository;
             }
         }
 

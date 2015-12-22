@@ -37,8 +37,7 @@ namespace TaskLogger.App_Start
                     {
                         UserName = "admin",
                         Email = "milenppavlov@gmail.com",
-                        DisplayName = "Administrator",
-                        Age = 31                    
+                        DisplayName = "Administrator"            
                     };                
                     await users.CreateAsync(adminUser, "Password123!");
 

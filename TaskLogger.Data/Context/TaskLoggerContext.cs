@@ -36,6 +36,12 @@ namespace TaskLogger.Data.Context
                 .HasRequired(x => x.UserTask)
                 .WithMany()
                 .HasForeignKey(x => x.UserTaskId);
+
+            modelBuilder.Entity<User>().Ignore(x => x.Age);
+
+            modelBuilder.Entity<User>()
+                .HasOptional(u => u.UserImage)
+                .WithRequired(ui => ui.User);
         }
     }
 }
