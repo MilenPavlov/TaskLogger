@@ -18,7 +18,7 @@ namespace TaskLogger.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        [Route("get")]
+        [Route("get/{id}")]
         public async Task<IHttpActionResult> GetUserImageAsync(string id)
         {
             if (string.IsNullOrEmpty(id))
