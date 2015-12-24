@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using TaskLogger.Data.Abstract;
@@ -26,11 +27,12 @@ namespace TaskLogger.Controllers
             }
             try
             {
-                var userImageEntry = await _unitOfWork.UserImageRepository.GetByIdAsync(id);
+                var userImageEntry =
+                    (await _unitOfWork.UserImageRepository.GetAsync(x => x.UserId == id)).FirstOrDefault();
 
                 if (userImageEntry == null)
                 {
-                    return Ok(new UserImageResponse() { ErrorMessage = "Could not find the image for user"});
+                    return Ok(new UserImageResponse() {ErrorMessage = "Could not find the image for user"});
                 }
 
                 return Ok(new UserImageResponse() {ImageBytes = userImageEntry.ImageBytes});

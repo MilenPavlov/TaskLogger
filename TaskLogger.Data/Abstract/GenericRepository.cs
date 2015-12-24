@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
+
 using System.Threading.Tasks;
 using TaskLogger.Data.Context;
+using TaskLogger.Data.Models;
 
 namespace TaskLogger.Data.Abstract
 {
@@ -84,6 +84,7 @@ namespace TaskLogger.Data.Abstract
         {
             return await _dbSet.FindAsync(id);
         }
+
 
         public virtual void Insert(T entity)
         {

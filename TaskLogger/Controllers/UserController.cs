@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
+using TaskLogger.Data.Abstract;
 using TaskLogger.Data.Models;
 
 namespace TaskLogger.Controllers
@@ -12,6 +14,13 @@ namespace TaskLogger.Controllers
     [RoutePrefix("api/accounts")]
     public class UserController : BaseApiController
     {
+        private readonly IUnitOfWork _unitOfWork;
+
+        public UserController(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
+
         //[Authorize]
         [Route("users")]
         public async Task<IHttpActionResult> GetUsersAsync()
@@ -34,10 +43,7 @@ namespace TaskLogger.Controllers
         {
             var user = await UserManager.FindByIdAsync(id);
 
-            if (user == null)
-            {
-                return this.NotFound();
-            }
+            user.UserImage = _unitOfWork.UserImageRepository.Get(x => x.User.UserId == id).FirstOrDefault();
 
             return this.Ok(user);
         }
@@ -47,11 +53,7 @@ namespace TaskLogger.Controllers
         public async Task<IHttpActionResult> GetUserByName(string username)
         {
             var user = await UserManager.FindByNameAsync(username);
-
-            if (user == null)
-            {
-                return this.NotFound();
-            }
+            user.UserImage = (await _unitOfWork.UserImageRepository.GetAsync(x => x.UserId == user.UserId)).FirstOrDefault();
 
             return this.Ok(user);
         }
