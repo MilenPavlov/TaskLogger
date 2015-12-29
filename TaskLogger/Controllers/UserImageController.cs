@@ -71,6 +71,7 @@ namespace TaskLogger.Controllers
             }
         }
 
+        [Route("delete/{id}")]
         public async Task<IHttpActionResult> DeleteUserImage(string id)
         {
             if (string.IsNullOrEmpty(id))
