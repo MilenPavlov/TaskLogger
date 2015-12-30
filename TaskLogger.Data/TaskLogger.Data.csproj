@@ -162,6 +162,10 @@
     <Compile Include="Migrations\201512301518597_Added_latest_changes.Designer.cs">
       <DependentUpon>201512301518597_Added_latest_changes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201512301558420_Added_Guid_key.cs" />
+    <Compile Include="Migrations\201512301558420_Added_Guid_key.Designer.cs">
+      <DependentUpon>201512301558420_Added_Guid_key.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\CreateUserModel.cs" />
@@ -217,6 +221,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201512301518597_Added_latest_changes.resx">
       <DependentUpon>201512301518597_Added_latest_changes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512301558420_Added_Guid_key.resx">
+      <DependentUpon>201512301558420_Added_Guid_key.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
