@@ -158,13 +158,9 @@
     <Compile Include="Migrations\201512130808154_ChangedAgeField.Designer.cs">
       <DependentUpon>201512130808154_ChangedAgeField.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201512220713179_AddedUserImageTable.cs" />
-    <Compile Include="Migrations\201512220713179_AddedUserImageTable.Designer.cs">
-      <DependentUpon>201512220713179_AddedUserImageTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201512240721561_Added_UserId_toUserImage.cs" />
-    <Compile Include="Migrations\201512240721561_Added_UserId_toUserImage.Designer.cs">
-      <DependentUpon>201512240721561_Added_UserId_toUserImage.cs</DependentUpon>
+    <Compile Include="Migrations\201512301518597_Added_latest_changes.cs" />
+    <Compile Include="Migrations\201512301518597_Added_latest_changes.Designer.cs">
+      <DependentUpon>201512301518597_Added_latest_changes.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ChangePasswordModel.cs" />
@@ -219,11 +215,8 @@
     <EmbeddedResource Include="Migrations\201512130808154_ChangedAgeField.resx">
       <DependentUpon>201512130808154_ChangedAgeField.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201512220713179_AddedUserImageTable.resx">
-      <DependentUpon>201512220713179_AddedUserImageTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201512240721561_Added_UserId_toUserImage.resx">
-      <DependentUpon>201512240721561_Added_UserId_toUserImage.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201512301518597_Added_latest_changes.resx">
+      <DependentUpon>201512301518597_Added_latest_changes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -7,13 +7,13 @@ namespace TaskLogger.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Added_UserId_toUserImage : IMigrationMetadata
+    public sealed partial class morechanges : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Added_UserId_toUserImage));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(morechanges));
         
         string IMigrationMetadata.Id
         {
-            get { return "201512240721561_Added_UserId_toUserImage"; }
+            get { return "201512301201294_morechanges"; }
         }
         
         string IMigrationMetadata.Source

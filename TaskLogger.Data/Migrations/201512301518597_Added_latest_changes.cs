@@ -3,7 +3,7 @@ namespace TaskLogger.Data.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AddedUserImageTable : DbMigration
+    public partial class Added_latest_changes : DbMigration
     {
         public override void Up()
         {
@@ -13,18 +13,18 @@ namespace TaskLogger.Data.Migrations
                     {
                         UserImageId = c.Guid(nullable: false),
                         ImageBytes = c.Binary(),
-                        User_Id = c.String(nullable: false, maxLength: 128),
+                        UserId = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => t.UserImageId)
-                .ForeignKey("dbo.AspNetUsers", t => t.User_Id)
-                .Index(t => t.User_Id);
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .Index(t => t.UserId);
             
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.UserImages", "User_Id", "dbo.AspNetUsers");
-            DropIndex("dbo.UserImages", new[] { "User_Id" });
+            DropForeignKey("dbo.UserImages", "UserId", "dbo.AspNetUsers");
+            DropIndex("dbo.UserImages", new[] { "UserId" });
             DropTable("dbo.UserImages");
         }
     }

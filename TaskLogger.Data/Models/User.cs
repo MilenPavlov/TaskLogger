@@ -29,7 +29,6 @@ namespace TaskLogger.Data.Models
 
         public UserType UserType { get; set; }
 
-        public virtual UserImage UserImage { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager, string authenticationType)
         {
             var userIdentity = await manager.CreateIdentityAsync(this, authenticationType);

@@ -43,7 +43,7 @@ namespace TaskLogger.Controllers
         {
             var user = await UserManager.FindByIdAsync(id);
 
-            user.UserImage = _unitOfWork.UserImageRepository.Get(x => x.User.UserId == id).FirstOrDefault();
+            //user.UserImage = _unitOfWork.UserImageRepository.Get(x => x.User.UserId == id).FirstOrDefault();
 
             return this.Ok(user);
         }
@@ -53,7 +53,7 @@ namespace TaskLogger.Controllers
         public async Task<IHttpActionResult> GetUserByName(string username)
         {
             var user = await UserManager.FindByNameAsync(username);
-            user.UserImage = (await _unitOfWork.UserImageRepository.GetAsync(x => x.UserId == user.UserId)).FirstOrDefault();
+            //user.UserImage = (await _unitOfWork.UserImageRepository.GetAsync(x => x.UserId == user.UserId)).FirstOrDefault();
 
             return this.Ok(user);
         }

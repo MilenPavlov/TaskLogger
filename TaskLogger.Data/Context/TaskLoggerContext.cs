@@ -39,9 +39,10 @@ namespace TaskLogger.Data.Context
 
             modelBuilder.Entity<User>().Ignore(x => x.Age);
 
-            modelBuilder.Entity<User>()
-                .HasOptional(u => u.UserImage)
-                .WithRequired(ui => ui.User);
+            modelBuilder.Entity<UserImage>()
+             .HasRequired(x => x.User)
+             .WithMany()
+             .HasForeignKey(x => x.UserId);
         }
     }
 }
