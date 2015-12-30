@@ -56,7 +56,6 @@ namespace TaskLogger.Controllers
             try
             {
                 var userImageEntry = (await _unitOfWork.UserImageRepository.GetAsync(u => u.UserId == model.Id)).FirstOrDefault();
-                var user = await UserManager.FindByIdAsync(model.Id);
 
                 if (userImageEntry != null)
                 {
@@ -66,7 +65,7 @@ namespace TaskLogger.Controllers
                     return Ok(new UserImageResponse() {InfoMessage = "Image updated"});
                 }
 
-                userImageEntry = new UserImage() {ImageBytes = model.ImageBytes, UserId = model.Id, User = user};
+                userImageEntry = new UserImage() {ImageBytes = model.ImageBytes, UserId = model.Id};
                 await _unitOfWork.UserImageRepository.InsertAsync(userImageEntry);
                 await _unitOfWork.SaveAsync();
                 return Ok(new UserImageResponse() { InfoMessage = "Image added" });
