@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using TaskLogger.Data.Abstract;
 using TaskLogger.Data.Models;
+using TaskLogger.Data.Responses;
 
 namespace TaskLogger.Controllers
 {
@@ -43,9 +44,9 @@ namespace TaskLogger.Controllers
         {
             var user = await UserManager.FindByIdAsync(id);
 
-            //user.UserImage = _unitOfWork.UserImageRepository.Get(x => x.User.UserId == id).FirstOrDefault();
+            var userImage = _unitOfWork.UserImageRepository.Get(x => x.User.UserId == id).FirstOrDefault();
 
-            return this.Ok(user);
+            return this.Ok(new UserResponse() {User = user, UserImage = userImage});
         }
 
         //[Authorize]
@@ -53,9 +54,9 @@ namespace TaskLogger.Controllers
         public async Task<IHttpActionResult> GetUserByName(string username)
         {
             var user = await UserManager.FindByNameAsync(username);
-            //user.UserImage = (await _unitOfWork.UserImageRepository.GetAsync(x => x.UserId == user.UserId)).FirstOrDefault();
+            var userImage = (await _unitOfWork.UserImageRepository.GetAsync(x => x.UserId == user.UserId)).FirstOrDefault();
 
-            return this.Ok(user);
+            return this.Ok(new UserResponse() { User = user, UserImage = userImage });
         }
 
         [AllowAnonymous]
