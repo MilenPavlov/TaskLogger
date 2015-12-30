@@ -11,7 +11,7 @@ namespace TaskLogger.Data.Concrete
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private TaskLoggerContext _context = new TaskLoggerContext();
+        private readonly TaskLoggerContext _context = new TaskLoggerContext();
         private GenericRepository<UserTask> _userTaskRepository;
         private GenericRepository<UserTaskEntry> _userTaskEntryRepository;
         private GenericRepository<UserImage> _userImageRepository;

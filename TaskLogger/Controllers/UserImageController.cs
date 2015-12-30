@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Microsoft.AspNet.Identity;
 using TaskLogger.Data.Abstract;
 using TaskLogger.Data.Models;
 using TaskLogger.Data.Responses;
@@ -55,6 +56,8 @@ namespace TaskLogger.Controllers
             try
             {
                 var userImageEntry = (await _unitOfWork.UserImageRepository.GetAsync(u => u.UserId == model.Id)).FirstOrDefault();
+                var user = await UserManager.FindByIdAsync(model.Id);
+
                 if (userImageEntry != null)
                 {
                     userImageEntry.ImageBytes = model.ImageBytes;
@@ -63,7 +66,7 @@ namespace TaskLogger.Controllers
                     return Ok(new UserImageResponse() {InfoMessage = "Image updated"});
                 }
 
-                userImageEntry = new UserImage() {ImageBytes = model.ImageBytes, UserId = model.Id};
+                userImageEntry = new UserImage() {ImageBytes = model.ImageBytes, UserId = model.Id, User = user};
                 await _unitOfWork.UserImageRepository.InsertAsync(userImageEntry);
                 await _unitOfWork.SaveAsync();
                 return Ok(new UserImageResponse() { InfoMessage = "Image added" });
