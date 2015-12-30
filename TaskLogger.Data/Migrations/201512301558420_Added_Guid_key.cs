@@ -8,7 +8,7 @@ namespace TaskLogger.Data.Migrations
         public override void Up()
         {
             DropPrimaryKey("dbo.UserImages");
-            AlterColumn("dbo.UserImages", "UserImageId", c => c.Guid(nullable: false, identity: true));
+            AlterColumn("dbo.UserImages", "UserImageId", c => c.Guid(nullable: false, identity: true, defaultValueSql: "newsequentialid()"));
             AddPrimaryKey("dbo.UserImages", "UserImageId");
         }
         
