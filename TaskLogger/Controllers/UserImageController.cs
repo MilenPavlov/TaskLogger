@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using TaskLogger.Data.Abstract;
+using TaskLogger.Data.Models;
 using TaskLogger.Data.Responses;
 using TaskLogger.Models;
 
@@ -53,17 +54,21 @@ namespace TaskLogger.Controllers
 
             try
             {
-                var userImageEntry = await _unitOfWork.UserImageRepository.GetByIdAsync(model.Id);
-
+                var userImageEntry = (await _unitOfWork.UserImageRepository.GetAsync(u => u.UserId == model.Id)).FirstOrDefault();
+                //update
                 if (userImageEntry != null)
                 {
                     userImageEntry.ImageBytes = model.ImageBytes;
                     await _unitOfWork.UserImageRepository.UpdateAsync(userImageEntry);
                     return Ok(new UserImageResponse() {InfoMessage = "Image updated"});
                 }
-                
-                return Ok(new UserImageResponse() { ErrorMessage = "Could not find the image for user" });
-                
+                //insert
+                else
+                {
+                    userImageEntry = new UserImage() {ImageBytes = model.ImageBytes, UserId = model.Id};
+                    await _unitOfWork.UserImageRepository.InsertAsync(userImageEntry);
+                    return Ok(new UserImageResponse() { InfoMessage = "Image added" });
+                }
             }
             catch (Exception ex)
             {
