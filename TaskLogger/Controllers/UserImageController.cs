@@ -55,20 +55,18 @@ namespace TaskLogger.Controllers
             try
             {
                 var userImageEntry = (await _unitOfWork.UserImageRepository.GetAsync(u => u.UserId == model.Id)).FirstOrDefault();
-                //update
                 if (userImageEntry != null)
                 {
                     userImageEntry.ImageBytes = model.ImageBytes;
                     await _unitOfWork.UserImageRepository.UpdateAsync(userImageEntry);
+                    await _unitOfWork.SaveAsync();
                     return Ok(new UserImageResponse() {InfoMessage = "Image updated"});
                 }
-                //insert
-                else
-                {
-                    userImageEntry = new UserImage() {ImageBytes = model.ImageBytes, UserId = model.Id};
-                    await _unitOfWork.UserImageRepository.InsertAsync(userImageEntry);
-                    return Ok(new UserImageResponse() { InfoMessage = "Image added" });
-                }
+
+                userImageEntry = new UserImage() {ImageBytes = model.ImageBytes, UserId = model.Id};
+                await _unitOfWork.UserImageRepository.InsertAsync(userImageEntry);
+                await _unitOfWork.SaveAsync();
+                return Ok(new UserImageResponse() { InfoMessage = "Image added" });
             }
             catch (Exception ex)
             {
