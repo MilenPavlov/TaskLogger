@@ -24,7 +24,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <ApplicationInsightsResourceId>/subscriptions/e3dc5a37-176b-4896-992a-3c3a0adb51a5/resourcegroups/StandardTier/providers/microsoft.insights/components/tlstandardappinsights</ApplicationInsightsResourceId>
+    <ApplicationInsightsResourceId>/subscriptions/e3dc5a37-176b-4896-992a-3c3a0adb51a5/resourcegroups/Default-ApplicationInsights-CentralUS/providers/microsoft.insights/components/TaskLogger.API</ApplicationInsightsResourceId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
