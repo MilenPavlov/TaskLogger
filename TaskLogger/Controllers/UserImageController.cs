@@ -85,14 +85,14 @@ namespace TaskLogger.Controllers
             }
             try
             {
-                var exists = await _unitOfWork.UserImageRepository.ExistsAsync(id);
+                var existsingImage = (await _unitOfWork.UserImageRepository.GetAsync(i => i.UserId == id)).FirstOrDefault();
 
-                if (!exists)
+                if (existsingImage == null)
                 {
                     return Ok(new UserImageResponse() { ErrorMessage = "Could not find the image for user" });
                 }
 
-                await _unitOfWork.UserImageRepository.DeleteAsync(id);
+                await _unitOfWork.UserImageRepository.DeleteAsync(existsingImage.UserImageId);
                 return Ok(new UserImageResponse() { InfoMessage = "Image deleted"});
             }
             catch (Exception ex)
